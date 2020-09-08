@@ -1,4 +1,4 @@
-package com.example.demo1_91social.tightCoupling;
+package com.example.demo1_91social.tasks.tightCoupling;
 
 
 import lombok.extern.log4j.Log4j2;

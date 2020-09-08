@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 class DatabaseServiceTest {
+
     @Autowired
     DatabaseService databaseService;
 
@@ -18,5 +19,6 @@ class DatabaseServiceTest {
     public void checkDBOperationSpeed(){
      long ressponseTimeFromDb  = databaseService.doDBOperation();
         long value = 1000;
-        assert ressponseTimeFromDb>value:"DataBase Response is too slow";      }
+        assert ressponseTimeFromDb>value:"DataBase Response is too slow";
+    }
 }

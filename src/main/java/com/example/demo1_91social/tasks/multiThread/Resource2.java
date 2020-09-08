@@ -1,14 +1,15 @@
-package com.example.demo1_91social.multiThread;
+package com.example.demo1_91social.tasks.multiThread;
 
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class Resource1 implements Runnable {
+public class Resource2 implements Runnable{
+
     ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock();
-    ReentrantReadWriteLock.ReadLock readLock = reentrantReadWriteLock.readLock();
+    ReentrantReadWriteLock.WriteLock writeLock=reentrantReadWriteLock.writeLock();
     private Semaphore semaphore;
 
-    public Resource1(Semaphore semaphore) {
+    public Resource2(Semaphore semaphore) {
         this.semaphore = semaphore;
     }
 
@@ -16,14 +17,13 @@ public class Resource1 implements Runnable {
     public void run() {
         try {
             semaphore.acquire();
-            boolean lockAcquered = readLock.tryLock();
+            boolean lockAcquered = writeLock.tryLock();
             if (lockAcquered) {
                 try {
-                    readLock.lock();
-                    System.out.println("some process 1");
+                    writeLock.lock();
                     //some process
                 } finally {
-                    readLock.unlock();
+                    writeLock.unlock();
                     semaphore.release();
                 }
 
@@ -34,5 +34,7 @@ public class Resource1 implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
     }
 }
+

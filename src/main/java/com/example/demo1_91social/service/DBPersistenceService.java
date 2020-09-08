@@ -24,8 +24,6 @@ public class DBPersistenceService {
             List<Customers> customers = dbRepo.performDBOPeration();
             long endTime=System.currentTimeMillis();
             timeTakenToExecuteQuery= (endTime-startTime);
-            System.out.println("customers listtt"+customers.toString());
-
         }
         catch (Exception e){
 

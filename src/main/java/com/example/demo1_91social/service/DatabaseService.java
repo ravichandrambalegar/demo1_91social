@@ -34,14 +34,10 @@ public class DatabaseService {
         try {
             for(int i=1;i<count;i++){
                 Customers  customers = new Customers();
-                customers.setFirst_name("ravi");
-                customers.setLast_name("mb");
+                customers.setFirst_name(getRandomString());
+                customers.setLast_name(getRandomString());
                 customers.setContact(getRandomNumber());
-                customers.setContact(getRandomNumber());
-                System.out.println("DB insert response:::"+getRandomNumber());
-
                 Customers customers1= dbRepo.save(customers);
-                System.out.println("DB insert response:::"+customers1.getContact());
             }
 
 
@@ -52,25 +48,25 @@ public class DatabaseService {
 
     protected String getRandomString() {
         String SALTCHARS = "abcdefghijklmnopqrstuvwxyz";
-        StringBuilder salt = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         Random rnd = new Random();
-        while (salt.length() < 10) { // length of the random string.
+        while (stringBuilder.length() < 10) { // length of the random string.
             int index = (int) (rnd.nextFloat() * SALTCHARS.length());
-            salt.append(SALTCHARS.charAt(index));
+            stringBuilder.append(SALTCHARS.charAt(index));
         }
-        String s = salt.toString();
+        String s = stringBuilder.toString();
         return s;
 
     }
     protected String getRandomNumber() {
         String SALTCHARS = "1234567890";
-        StringBuilder salt = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         Random rnd = new Random();
-        while (salt.length() < 10) { // length of the random string.
+        while (stringBuilder.length() < 10) { // length of the random string.
             int index = (int) (rnd.nextFloat() * SALTCHARS.length());
-            salt.append(SALTCHARS.charAt(index));
+            stringBuilder.append(SALTCHARS.charAt(index));
         }
-        String contact = salt.toString();
+        String contact = stringBuilder.toString();
         return contact;
 
     }

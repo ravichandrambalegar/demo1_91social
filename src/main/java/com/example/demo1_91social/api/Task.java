@@ -26,6 +26,8 @@ public class Task {
     MachinePriceComp machinePriceComp;
     @Autowired
     DatabaseService databaseService;
+    @Autowired
+    SocketService socketService;
 
     @RequestMapping (value = "/api/reverse/string", method = RequestMethod.POST)
     public ResponseEntity<?> makeReport(@RequestBody ReverseStringApiRequest reverseStringApiRequest, BindingResult bindingResult) {
@@ -83,7 +85,7 @@ public class Task {
             return new ResponseEntity<String>("Binding Issues for /api/non-repeated/element", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         AppResponse response = new AppResponse();
-        List<Integer> sortedArray = nonRepeatativeNumber.checkNonRepeatativeNumber(nonRepeatativeNumberRequest.getIntArray());
+        List<Integer> sortedArray = nonRepeatativeNumber.findNonRepeatativeNumbers(nonRepeatativeNumberRequest.getIntArray());
 
         try {
             response.setData(sortedArray);
@@ -111,22 +113,7 @@ public class Task {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
-    @RequestMapping (value = "/api/database/get/data", method = RequestMethod.POST)
-    public ResponseEntity<?> databaseGetData(@RequestBody DataBaseRequest dataBaseRequest, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<String>("Binding Issues for /api/database/get/data", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        AppResponse response = new AppResponse();
-        long timeInMilliSec = databaseService.doDBOperation();
 
-        try {
-            response.setData(timeInMilliSec + "  Milli Seconds");
-            response.setMsg("Success");
-        } catch (Exception e) {
-            response.setMsg(e.getMessage());
-        }
-        return new ResponseEntity(response, HttpStatus.OK);
-    }
     @RequestMapping (value = "/api/database/insert/randomdata", method = RequestMethod.POST)
     public ResponseEntity<?> databaseInsertData(@RequestBody InsertDBRequest insertDBRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -144,5 +131,19 @@ public class Task {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
+    @GetMapping("api/database/get/data")
+    String databaseGetData() {
+        long timeInMilliSec = databaseService.doDBOperation();
+        return timeInMilliSec+ " Milli Seconds";
+    }
+
+    @GetMapping("/api/start/server")
+      String sartServer() {
+        return socketService.startServer();
+    }
+    @GetMapping("/api/start/client")
+    String sartClient() {
+        return socketService.startClient();
+    }
 
 }

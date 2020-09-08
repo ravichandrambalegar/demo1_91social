@@ -20,7 +20,6 @@ public class MachinePriceComp {
     public MachinePriceResponse machinePriceComp(List<Machine> machines){
         MachinePriceResponse machinePriceResponse=new MachinePriceResponse();
         try {
-
             Machine machine = machines.stream()
                     .max((machine1, machine2)->
                             machine1.getPrice() > machine2.getPrice() ? 1: -1).get();
@@ -32,7 +31,7 @@ public class MachinePriceComp {
             map.put("error",e);
             String message = String.format("Unable to Compare Machine Price ");
             log.error(message, e);
-            throw new BusinessException("Invalid document type", BusinessError.ANABLE_TO_COMPARE,map);
+            throw new BusinessException(message, BusinessError.ANABLE_TO_COMPARE,map);
         }
         return machinePriceResponse;
     }

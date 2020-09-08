@@ -11,7 +11,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
 @Log4j2
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -24,8 +23,6 @@ public class ReverseSStringServiceTest {
         ReverseStringApiRequest reverseStringApiRequest = new ReverseStringApiRequest();
         reverseStringApiRequest.setUserString("ravi");
         String reversedString=reverseSStringService.makeStringReverse(reverseStringApiRequest.getUserString());
-        log.info("Reverse String  Response :"+reversedString);
         assertTrue(reversedString.equals("ivar"));
-
     }
 }

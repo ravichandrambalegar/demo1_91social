@@ -1,6 +1,5 @@
-package com.example.demo1_91social.multiThread;
+package com.example.demo1_91social.tasks.multiThread;
 
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
